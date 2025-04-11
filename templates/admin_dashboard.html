@@ -1,0 +1,129 @@
+{% extends "admin_layout.html" %}
+{% set active_page = "dashboard" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block header_title %}Dashboard{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-cards">
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon info">
+                <i class="fas fa-ticket-alt"></i>
+            </div>
+            <h3 class="card-title">Total Tickets</h3>
+        </div>
+        <div class="card-value" id="total-tickets">-</div>
+        <div class="card-delta positive" id="tickets-delta">
+            <i class="fas fa-arrow-up"></i>
+            <span>0% from last month</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon success">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="card-title">Resolution Rate</h3>
+        </div>
+        <div class="card-value" id="resolution-rate">-</div>
+        <div class="card-delta positive" id="resolution-delta">
+            <i class="fas fa-arrow-up"></i>
+            <span>0% from last month</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon warning">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3 class="card-title">Avg. Resolution Time</h3>
+        </div>
+        <div class="card-value" id="avg-resolution-time">-</div>
+        <div class="card-delta negative" id="time-delta">
+            <i class="fas fa-arrow-down"></i>
+            <span>0% from last month</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon error">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3 class="card-title">Critical Issues</h3>
+        </div>
+        <div class="card-value" id="critical-issues">-</div>
+        <div class="card-delta negative" id="critical-delta">
+            <i class="fas fa-arrow-up"></i>
+            <span>0% from last month</span>
+        </div>
+    </div>
+</div>
+
+<div class="chart-container">
+    <div class="chart-header">
+        <h3 class="chart-title">Ticket Activity</h3>
+        <div class="chart-controls">
+            <select id="ticket-chart-period">
+                <option value="week">Last 7 days</option>
+                <option value="month" selected>Last 30 days</option>
+                <option value="quarter">Last 90 days</option>
+            </select>
+        </div>
+    </div>
+    <canvas id="ticket-activity-chart" height="250"></canvas>
+</div>
+
+<div class="chart-section">
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Resolution by Category</h3>
+        </div>
+        <canvas id="category-chart" height="300"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Ticket Status Distribution</h3>
+        </div>
+        <canvas id="status-chart" height="300"></canvas>
+    </div>
+</div>
+
+<div class="tickets-container">
+    <div class="table-header">
+        <h3 class="table-title">Recent Tickets</h3>
+        <a href="/admin/tickets" class="action-link">View all tickets <i class="fas fa-arrow-right"></i></a>
+    </div>
+    
+    <table class="tickets-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Resolution Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="recent-tickets-table">
+            <tr>
+                <td colspan="6" class="text-center">Loading tickets...</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="/static/js/admin_dashboard.js"></script>
+{% endblock %}

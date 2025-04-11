@@ -1,0 +1,611 @@
+/* Admin Dashboard Styles */
+
+/* Layout */
+.admin-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--color-neutral-900);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: width 0.3s ease;
+}
+
+.admin-sidebar.collapsed {
+    width: 70px;
+}
+
+.admin-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--color-neutral-50);
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sidebar-header .logo-icon {
+    font-size: 1.5rem;
+    color: var(--color-primary-light);
+}
+
+.sidebar-header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.admin-sidebar.collapsed .sidebar-header h1 {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.toggle-button:hover {
+    color: var(--color-primary-light);
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    color: var(--color-neutral-400);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+}
+
+.nav-link i {
+    width: 20px;
+    font-size: 1rem;
+    margin-right: 0.75rem;
+    text-align: center;
+}
+
+.nav-link span {
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--color-primary);
+}
+
+.admin-sidebar.collapsed .nav-link {
+    justify-content: center;
+    padding: 0.875rem;
+}
+
+.admin-sidebar.collapsed .nav-link i {
+    margin-right: 0;
+    width: auto;
+}
+
+.admin-sidebar.collapsed .nav-link span {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-sidebar.collapsed .sidebar-footer {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--color-neutral-400);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.theme-toggle:hover {
+    color: white;
+}
+
+/* Admin Header */
+.admin-header {
+    height: 64px;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+}
+
+.admin-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Admin Main Content */
+.admin-main {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+/* Dashboard Cards */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-card {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--color-neutral-700);
+}
+
+.card-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-right: 1rem;
+}
+
+.card-icon.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--color-success);
+}
+
+.card-icon.info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--color-info);
+}
+
+.card-icon.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--color-warning);
+}
+
+.card-icon.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--color-error);
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.card-value {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+    color: var(--color-neutral-900);
+}
+
+.card-delta {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.card-delta.positive {
+    color: var(--color-success);
+}
+
+.card-delta.negative {
+    color: var(--color-error);
+}
+
+/* Charts Section */
+.chart-container {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chart-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Tickets Table */
+.tickets-container, .ticket-detail-container {
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.table-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.search-filter {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.search-input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--border-radius-md);
+    font-size: 0.875rem;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+.tickets-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.tickets-table th, .tickets-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.tickets-table th {
+    font-weight: 600;
+    color: var(--color-neutral-700);
+    background-color: var(--color-neutral-100);
+}
+
+.tickets-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tickets-table tr:hover td {
+    background-color: var(--color-neutral-100);
+}
+
+.ticket-id {
+    font-family: monospace;
+    color: var(--color-primary);
+}
+
+.ticket-status {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.ticket-status.resolved {
+    background-color: var(--color-success);
+    color: white;
+}
+
+.ticket-status.open {
+    background-color: var(--color-warning);
+    color: white;
+}
+
+.ticket-status.in-progress {
+    background-color: var(--color-info);
+    color: white;
+}
+
+.action-link {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Ticket detail */
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.ticket-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.ticket-sections {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.ticket-conversation {
+    background-color: var(--color-neutral-50);
+    border-radius: var(--border-radius-lg);
+    padding: 1rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.ticket-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.info-card {
+    background-color: var(--color-neutral-50);
+    border-radius: var(--border-radius-md);
+    padding: 1rem;
+}
+
+.info-card h3 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 500;
+    color: var(--color-neutral-700);
+}
+
+.info-value {
+    font-weight: 500;
+}
+
+/* Analytics Page */
+.analytics-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.date-select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-neutral-300);
+    border-radius: var(--border-radius-md);
+    font-size: 0.875rem;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+    .chart-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 70px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+    }
+
+    .admin-sidebar.expanded {
+        width: 260px;
+    }
+
+    .admin-content {
+        margin-left: 70px;
+    }
+
+    .sidebar-header h1 {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    .admin-sidebar.expanded .sidebar-header h1 {
+        opacity: 1;
+        width: auto;
+    }
+
+    .nav-link {
+        justify-content: center;
+        padding: 0.875rem;
+    }
+
+    .nav-link i {
+        margin-right: 0;
+        width: auto;
+    }
+
+    .nav-link span {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+    }
+
+    .admin-sidebar.expanded .nav-link {
+        justify-content: flex-start;
+        padding: 0.875rem 1.5rem;
+    }
+
+    .admin-sidebar.expanded .nav-link i {
+        margin-right: 0.75rem;
+        width: 20px;
+    }
+
+    .admin-sidebar.expanded .nav-link span {
+        opacity: 1;
+        width: auto;
+        overflow: visible;
+    }
+
+    .ticket-sections {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Dark Mode Styles */
+body.dark-mode .admin-header,
+body.dark-mode .dashboard-card,
+body.dark-mode .chart-container,
+body.dark-mode .tickets-container,
+body.dark-mode .ticket-detail-container,
+body.dark-mode .analytics-controls {
+    background-color: var(--color-neutral-100);
+    color: var(--color-neutral-800);
+}
+
+body.dark-mode .admin-header {
+    box-shadow: var(--shadow-md);
+}
+
+body.dark-mode .ticket-conversation,
+body.dark-mode .info-card {
+    background-color: var(--color-neutral-200);
+}
+
+body.dark-mode .tickets-table th {
+    background-color: var(--color-neutral-200);
+}
+
+body.dark-mode .tickets-table tr:hover td {
+    background-color: var(--color-neutral-200);
+}

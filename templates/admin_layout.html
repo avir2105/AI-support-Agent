@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}Admin Dashboard{% endblock %} - AI Multiagent Support System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    {% block additional_css %}{% endblock %}
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <i class="fas fa-robot logo-icon"></i>
+                    <h1>AI Support</h1>
+                </div>
+                <button id="toggle-sidebar" class="toggle-button" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="/admin/dashboard" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/tickets" class="nav-link {% if active_page == 'tickets' %}active{% endif %}">
+                            <i class="fas fa-ticket-alt"></i>
+                            <span>Tickets</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/admin/analytics" class="nav-link {% if active_page == 'analytics' %}active{% endif %}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Analytics</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="/" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Back to Home</span>
+                </a>
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <header class="admin-header">
+                <h1>{% block header_title %}Admin Dashboard{% endblock %}</h1>
+                <div class="header-controls">
+                    <div class="connection-status">
+                        <span class="status-indicator" id="connection-indicator"></span>
+                        <span id="connection-text">Checking connection...</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="admin-main">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/static/js/admin_ui.js"></script>
+    {% block additional_js %}{% endblock %}
+</body>
+</html>

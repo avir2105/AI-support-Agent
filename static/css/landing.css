@@ -1,0 +1,155 @@
+/* Landing page specific styles */
+.landing-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-neutral-50);
+}
+
+.landing-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.landing-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.landing-card {
+    flex: 1;
+    max-width: 350px;
+    min-width: 300px;
+    background-color: white;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.landing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.screen-sharing-card {
+    border-top: 4px solid #3b82f6;
+    position: relative;
+}
+
+.screen-sharing-card::before {
+    content: "New";
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #ef4444;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.screen-sharing-card .card-icon {
+    color: #3b82f6;
+}
+
+.landing-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--color-neutral-900);
+}
+
+.landing-card p {
+    margin-bottom: 2rem;
+    color: var(--color-neutral-600);
+    line-height: 1.5;
+}
+
+.landing-button {
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-md);
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    margin-top: auto;
+}
+
+.landing-button:hover {
+    background-color: var(--color-primary-dark);
+    text-decoration: none;
+}
+
+.landing-footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--color-neutral-500);
+    border-top: 1px solid var(--color-neutral-200);
+}
+
+/* Dark mode styles */
+body.dark-mode .landing-card {
+    background-color: var(--color-neutral-100);
+}
+
+body.dark-mode .landing-card h2 {
+    color: var(--color-neutral-800);
+}
+
+body.dark-mode .landing-card p {
+    color: var(--color-neutral-600);
+}
+
+/* Responsive design */
+@media (max-width: 1100px) {
+    .landing-content {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .landing-card {
+        max-width: 45%;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .landing-content {
+        flex-direction: column;
+        padding: 1.5rem;
+    }
+    
+    .landing-card {
+        max-width: 100%;
+        margin-bottom: 1rem;
+    }
+}

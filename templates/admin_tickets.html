@@ -1,0 +1,62 @@
+{% extends "admin_layout.html" %}
+{% set active_page = "tickets" %}
+
+{% block title %}Tickets{% endblock %}
+{% block header_title %}Tickets Management{% endblock %}
+
+{% block content %}
+<div class="tickets-container">
+    <div class="table-header">
+        <h3 class="table-title">All Support Tickets</h3>
+        <div class="search-filter">
+            <input type="text" id="ticket-search" class="search-input" placeholder="Search tickets...">
+            <select id="status-filter" class="search-input">
+                <option value="all">All Statuses</option>
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <select id="priority-filter" class="search-input">
+                <option value="all">All Priorities</option>
+                <option value="Critical">Critical</option>
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+    </div>
+    
+    <table class="tickets-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Sentiment</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Resolution Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="tickets-table">
+            <tr>
+                <td colspan="7" class="text-center">Loading tickets...</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <div class="pagination" id="tickets-pagination">
+        <button id="prev-page" class="pagination-btn" disabled>
+            <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <span id="pagination-info">Page 1 of 1</span>
+        <button id="next-page" class="pagination-btn" disabled>
+            Next <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="/static/js/admin_tickets.js"></script>
+{% endblock %}

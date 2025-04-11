@@ -1,0 +1,113 @@
+{% extends "admin_layout.html" %}
+{% set active_page = "analytics" %}
+
+{% block title %}Analytics{% endblock %}
+{% block header_title %}Analytics Dashboard{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="analytics-controls">
+    <div class="date-range">
+        <label for="date-from">Date Range:</label>
+        <select id="date-range" class="date-select">
+            <option value="7">Last 7 days</option>
+            <option value="30" selected>Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="180">Last 6 months</option>
+            <option value="365">Last year</option>
+        </select>
+    </div>
+    <button id="refresh-analytics" class="update-status-btn">
+        <i class="fas fa-sync-alt"></i> Refresh Data
+    </button>
+</div>
+
+<div class="dashboard-cards">
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon success">
+                <i class="fas fa-clipboard-check"></i>
+            </div>
+            <h3 class="card-title">Resolution Rate</h3>
+        </div>
+        <div class="card-value" id="analytics-resolution-rate">-</div>
+        <div class="card-delta positive" id="analytics-resolution-delta">
+            <i class="fas fa-arrow-up"></i>
+            <span>0% from previous period</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon info">
+                <i class="fas fa-clock"></i>
+            </div>
+            <h3 class="card-title">Avg. Resolution Time</h3>
+        </div>
+        <div class="card-value" id="analytics-avg-time">-</div>
+        <div class="card-delta positive" id="analytics-time-delta">
+            <i class="fas fa-arrow-down"></i>
+            <span>0% from previous period</span>
+        </div>
+    </div>
+    
+    <div class="dashboard-card">
+        <div class="card-header">
+            <div class="card-icon warning">
+                <i class="fas fa-smile"></i>
+            </div>
+            <h3 class="card-title">Customer Sentiment</h3>
+        </div>
+        <div class="card-value" id="analytics-sentiment">-</div>
+        <div class="card-delta" id="analytics-sentiment-delta">
+            <i class="fas fa-equals"></i>
+            <span>No change</span>
+        </div>
+    </div>
+</div>
+
+<div class="chart-grid">
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Tickets by Category</h3>
+        </div>
+        <canvas id="analytics-category-chart" height="300"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Resolution Time by Category</h3>
+        </div>
+        <canvas id="analytics-time-chart" height="300"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Sentiment Distribution</h3>
+        </div>
+        <canvas id="analytics-sentiment-chart" height="300"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <div class="chart-header">
+            <h3 class="chart-title">Ticket Resolution Trend</h3>
+        </div>
+        <canvas id="analytics-trend-chart" height="300"></canvas>
+    </div>
+</div>
+
+<div class="chart-container">
+    <div class="chart-header">
+        <h3 class="chart-title">Priority Distribution</h3>
+    </div>
+    <canvas id="analytics-priority-chart" height="250"></canvas>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="/static/js/admin_analytics.js"></script>
+{% endblock %}

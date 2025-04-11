@@ -1,0 +1,83 @@
+{% extends "admin_layout.html" %}
+{% set active_page = "tickets" %}
+
+{% block title %}Ticket Detail{% endblock %}
+{% block header_title %}Ticket Details{% endblock %}
+
+{% block additional_css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="ticket-detail-container">
+    <div class="ticket-header">
+        <h2>Ticket <span id="ticket-id" class="ticket-id">Loading...</span></h2>
+        <div class="ticket-controls">
+            <select id="ticket-status" class="search-input">
+                <option value="Open">Open</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Resolved">Resolved</option>
+            </select>
+            <button id="update-status" class="update-status-btn">Update Status</button>
+            <a href="/admin/tickets" class="action-link">Back to Tickets</a>
+        </div>
+    </div>
+    
+    <div class="ticket-sections">
+        <div class="ticket-conversation-section">
+            <h3>Conversation</h3>
+            <div id="ticket-conversation" class="ticket-conversation">
+                <p>Loading conversation...</p>
+            </div>
+        </div>
+        
+        <div class="ticket-info">
+            <div class="info-card">
+                <h3>Ticket Information</h3>
+                <div class="info-item">
+                    <span class="info-label">Category:</span>
+                    <span class="info-value" id="ticket-category">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Priority:</span>
+                    <span class="info-value" id="ticket-priority">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Sentiment:</span>
+                    <span class="info-value" id="ticket-sentiment">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status:</span>
+                    <span class="info-value" id="ticket-status-display">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Resolution Date:</span>
+                    <span class="info-value" id="ticket-resolution-date">Loading...</span>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h3>Agent Insights</h3>
+                <div class="info-item">
+                    <span class="info-label">Summary:</span>
+                    <span class="info-value" id="ticket-summary">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Recommended Solution:</span>
+                    <span class="info-value" id="ticket-solution">Loading...</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Routing:</span>
+                    <span class="info-value" id="ticket-routing">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block additional_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.2/marked.min.js"></script>
+<script src="/static/js/admin_ticket_detail.js"></script>
+{% endblock %}

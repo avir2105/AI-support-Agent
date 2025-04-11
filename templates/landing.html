@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>AI Multiagent Support System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/landing.css?v=1.1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="theme-color" content="#2563eb">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <div class="landing-container">
+        <div class="landing-header">
+            <div class="logo-container">
+                <i class="fas fa-robot logo-icon"></i>
+                <h1>AI Multiagent Support System</h1>
+            </div>
+        </div>
+        
+        <div class="landing-content">
+            <div class="landing-card user-card">
+                <div class="card-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>Use as User</h2>
+                <p>Access the AI-powered customer support interface to get help with your issues.</p>
+                <a href="/user" class="landing-button">
+                    Continue as User
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="landing-card screen-sharing-card">
+                <div class="card-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <h2>Realtime Screen Sharing Assistant</h2>
+                <p>Share your screen in real-time and get immediate assistance from our AI agents.</p>
+                <a href="/screen-sharing" class="landing-button">
+                    Start Screen Sharing
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div class="landing-card admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h2>Use as Admin</h2>
+                <p>Access the admin dashboard to view analytics, manage tickets, and monitor system performance.</p>
+                <a href="/admin/dashboard" class="landing-button">
+                    Continue as Admin
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="landing-footer">
+            <p>&copy; 2025 AI Multiagent Support System. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Force reload CSS files to prevent caching issues
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.getElementsByTagName('link');
+            for (let i = 0; i < links.length; i++) {
+                if (links[i].rel === 'stylesheet') {
+                    const href = links[i].getAttribute('href');
+                    if (href.indexOf('?') === -1) {
+                        links[i].setAttribute('href', href + '?v=' + new Date().getTime());
+                    }
+                }
+            }
+            console.log('CSS refreshed to show screen sharing option');
+        });
+    </script>
+</body>
+</html>

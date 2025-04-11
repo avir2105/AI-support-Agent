@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>AI-Driven Customer Support System</title>
+    <!-- Critical CSS inline to prevent Flash of Unstyled Content -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f9fafb;
+            color: #111827;
+            height: 100vh;
+            overflow: hidden;
+        }
+        body.initializing * {
+            transition: none !important;
+        }
+        .app-container {
+            opacity: 1 !important; /* Make sure app is visible */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .initializing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f9fafb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        #empty-state {
+            display: none; /* Initially hidden */
+        }
+    </style>
+    <!-- Preload the main stylesheet -->
+    <link rel="preload" href="/static/css/styles.css" as="style">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <!-- Add meta theme color for browser UI consistency -->
+    <meta name="theme-color" content="#2563eb">
+</head>
+<body>
+    <!-- Initial loading overlay -->
+    <div class="initializing-overlay" id="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-circle-notch fa-spin fa-3x" style="color:#2563eb"></i>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo-container">
+                <a href="/" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Home</span>
+                </a>
+                <i class="fas fa-robot logo-icon"></i>
+                <h1>AI-Driven Customer Support</h1>
+            </div>
+            <div class="header-controls">
+                <div class="connection-status">
+                    <span class="status-indicator" id="connection-indicator"></span>
+                    <span id="connection-text">Connecting...</span>
+                </div>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-content">
+            <!-- Chat Panel -->
+            <section class="chat-panel">
+                <div class="chat-container">
+                    <div id="chat-messages" class="chat-messages"></div>
+                    <div id="typing-indicator" class="typing-indicator hidden">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div id="new-messages-indicator" class="new-messages-indicator hidden">
+                        <i class="fas fa-arrow-down"></i> New messages
+                    </div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <div class="file-upload" id="file-upload-area">
+                        <input type="file" id="file-input" multiple hidden>
+                        <label for="file-input" class="file-label" id="file-drop-zone">
+                            <i class="fas fa-paperclip"></i>
+                            <span>Attach files</span>
+                        </label>
+                        <div id="file-preview-container" class="file-preview-container hidden"></div>
+                    </div>
+                    <textarea 
+                        id="message-input" 
+                        placeholder="Type your message here..." 
+                        aria-label="Type your message"
+                    ></textarea>
+                    <button id="send-button" aria-label="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Insights Panel -->
+            <section class="insights-panel">
+                <div class="insights-header">
+                    <h2>Agent Insights</h2>
+                    <button id="toggle-insights" class="toggle-button" aria-label="Toggle insights panel">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <div class="insights-content">
+                    <!-- Ticket Information -->
+                    <div class="insights-card ticket-info">
+                        <div class="ticket-header">
+                            <h3 id="ticket-id">Loading ticket ID...</h3>
+                            <div class="ticket-status-wrapper">
+                                <label for="ticket-status">Status:</label>
+                                <select id="ticket-status">
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <button id="update-status" class="update-status-btn">Update</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Section -->
+                    <div class="insights-card collapsible">
+                        <div class="insights-card-header">
+                            <h3>Conversation Summary</h3>
+                            <button class="collapse-button" aria-label="Toggle section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="insights-card-content">
+                            <div id="summary-content" class="card-text">No summary available yet.</div>
+                        </div>
+                    </div>
+
+                    <!-- Action Items -->
+                    <div class="insights-card collapsible">
+                        <div class="insights-card-header">
+                            <h3>Action Items</h3>
+                            <button class="collapse-button" aria-label="Toggle section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="insights-card-content">
+                            <ul id="actions-list" class="action-list">
+                                <li class="empty-list-message">No actions identified yet.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Recommended Solutions -->
+                    <div class="insights-card collapsible">
+                        <div class="insights-card-header">
+                            <h3>Recommended Solutions</h3>
+                            <button class="collapse-button" aria-label="Toggle section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="insights-card-content">
+                            <ul id="recommendations-list" class="recommendations-list">
+                                <li class="empty-list-message">No recommendations available yet.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Task Routing -->
+                    <div class="insights-card collapsible">
+                        <div class="insights-card-header">
+                            <h3>Task Routing</h3>
+                            <button class="collapse-button" aria-label="Toggle section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="insights-card-content">
+                            <div id="routing-content" class="routing-info">
+                                <p>No routing determined yet.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resolution Time -->
+                    <div class="insights-card collapsible">
+                        <div class="insights-card-header">
+                            <h3>Resolution Time Estimate</h3>
+                            <button class="collapse-button" aria-label="Toggle section">
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="insights-card-content">
+                            <div id="time-estimate-content" class="card-text">
+                                No estimate available yet.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Metrics -->
+                    <div class="insights-card performance-metrics">
+                        <div class="insights-card-header">
+                            <h3>Performance Metrics</h3>
+                        </div>
+                        <div class="insights-card-content">
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <div class="metric-value" id="avg-resolution-time">-</div>
+                                    <div class="metric-label">Avg. Resolution Time</div>
+                                    <div class="metric-delta" id="avg-resolution-time-delta"></div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value" id="first-response-time">-</div>
+                                    <div class="metric-label">First Response Time</div>
+                                    <div class="metric-delta" id="first-response-time-delta"></div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-value" id="customer-satisfaction">-</div>
+                                    <div class="metric-label">Customer Satisfaction</div>
+                                    <div class="metric-delta" id="customer-satisfaction-delta"></div>
+                                </div>
+                            </div>
+                            <div class="database-status">
+                                <span>Database Status:</span>
+                                <span id="db-status" class="status-text">Checking...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toasts Container -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- Empty State - Note the position is inside body but outside app-container -->
+    <div id="empty-state" class="empty-state hidden">
+        <div class="empty-state-content">
+            <div class="empty-state-icon">
+                <i class="fas fa-comments"></i>
+            </div>
+            <h2>Start a Conversation</h2>
+            <p>Send a message to get support from our AI-powered system.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Remove loading overlay after scripts load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var overlay = document.getElementById('loading-overlay');
+                if (overlay) {
+                    overlay.style.opacity = '0';
+                    setTimeout(function() {
+                        overlay.style.display = 'none';
+                        
+                        // Force app container visibility
+                        document.querySelector('.app-container').style.opacity = '1';
+                    }, 300);
+                }
+            }, 200);
+        });
+    </script>
+    <script src="/static/js/websocket.js"></script>
+    <script src="/static/js/ui.js"></script>
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/insights.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
