@@ -199,5 +199,3 @@ The multi-agent approach provides unparalleled flexibility and extensibility, al
 - Enhanced visualization of agent reasoning processes
 - AI-assisted screen annotations in Live Screen Sharing Assistant
 
----
-© 2023 AI-Driven Customer Support System Team
